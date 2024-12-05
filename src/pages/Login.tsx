@@ -74,9 +74,19 @@ function Login() {
               </button>
             </div>
           </form>
+          <p className="text-center text-sm/6 mt-2 text-gray-500">
+            Don't have an account?
+            <Link
+              to="/register"
+              className="font-semibold text-indigo-600 hover:text-indigo-500"
+            >
+              {" "}
+              Sign up here.
+            </Link>
+          </p>
           <Link
             to="/"
-            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 mt-2 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 mt-4 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Back to Home
           </Link>
