@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import { toast } from "react-toastify";
 
 function Home() {
   const navigate = useNavigate();
@@ -20,15 +21,17 @@ function Home() {
   }, []);
 
   const handleLogout = () => {
-    signOut(auth)
+    toast
+      .promise(signOut(auth), {
+        pending: "Logging out...",
+        success: "Logged out successfully!",
+        error: "An error occurred. Please try again.",
+      })
       .then(() => {
         navigate("/login");
-        console.log("Signed out successfully");
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.error("Logout error:", error);
       });
   };
 

@@ -2,6 +2,7 @@ import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import { toast } from "react-toastify";
 
 function Login() {
   const navigate = useNavigate();
@@ -10,16 +11,21 @@ function Login() {
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+
+    const loginPromise = signInWithEmailAndPassword(auth, email, password);
+
+    toast.promise(loginPromise, {
+      pending: "Logging in...",
+      success: "Login successful!",
+      error: "Incorrect email or password.",
+    });
+
+    loginPromise
+      .then(() => {
         navigate("/");
-        console.log(user);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.error("Login failed:", error);
       });
   };
 
@@ -98,7 +104,7 @@ function Login() {
               </button>
             </div>
           </form>
-          <p className="text-center text-sm/6 mt-2 text-gray-500">
+          <p className="text-center text-sm/6 mt-10 text-gray-500">
             Don't have an account?
             <Link
               to="/register"
@@ -108,12 +114,6 @@ function Login() {
               Sign up here.
             </Link>
           </p>
-          <Link
-            to="/"
-            className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 mt-4 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Back to Home
-          </Link>
         </div>
       </div>
     </>
