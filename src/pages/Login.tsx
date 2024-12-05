@@ -1,6 +1,28 @@
-import { Link } from "react-router";
+import { useState, FormEvent } from "react";
+import { Link, useNavigate } from "react-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        navigate("/");
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
+
   return (
     <>
       <div className="flex h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -16,7 +38,7 @@ function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={handleLogin}>
             <div>
               <label
                 htmlFor="email"
@@ -31,6 +53,7 @@ function Login() {
                   id="email"
                   autoComplete="email"
                   required
+                  onChange={(e) => setEmail(e.target.value)}
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 ></input>
               </div>
@@ -60,6 +83,7 @@ function Login() {
                   id="password"
                   autoComplete="current-password"
                   required
+                  onChange={(e) => setPassword(e.target.value)}
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 ></input>
               </div>

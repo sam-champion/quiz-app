@@ -1,6 +1,31 @@
-import { Link } from "react-router";
+import { useState, FormEvent } from "react";
+import { Link, useNavigate } from "react-router";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 function Register() {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleRegistration = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        navigate("/login");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
+
   return (
     <>
       <div className="flex h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -16,7 +41,7 @@ function Register() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={handleRegistration}>
             <div>
               <label
                 htmlFor="email"
@@ -31,6 +56,7 @@ function Register() {
                   id="email"
                   autoComplete="email"
                   required
+                  onChange={(e) => setEmail(e.target.value)}
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 ></input>
               </div>
@@ -40,7 +66,7 @@ function Register() {
                 htmlFor="password"
                 className="block text-sm/6 font-medium text-gray-900"
               >
-                Password
+                Create Password
               </label>
               <div className="mt-2">
                 <input
@@ -49,6 +75,7 @@ function Register() {
                   id="password"
                   autoComplete="new-password"
                   required
+                  onChange={(e) => setPassword(e.target.value)}
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 ></input>
               </div>
@@ -67,6 +94,7 @@ function Register() {
                   id="confirmPassword"
                   autoComplete="new-password"
                   required
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 ></input>
               </div>
