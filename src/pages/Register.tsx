@@ -1,29 +1,61 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import {
+  createUserWithEmailAndPassword,
+  validatePassword,
+} from "firebase/auth";
+import { toast } from "react-toastify";
 
 function Register() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleRegistration = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/login");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    const status = await validatePassword(auth, password);
+    const passwordRequirements = [];
+
+    if (!status.meetsMinPasswordLength) {
+      passwordRequirements.push(
+        `Password must be at least ${status.passwordPolicy.customStrengthOptions.minPasswordLength} characters long.`
+      );
+    }
+    if (!status.containsLowercaseLetter) {
+      passwordRequirements.push(
+        "Password must contain at least one lowercase letter."
+      );
+    }
+    if (!status.containsUppercaseLetter) {
+      passwordRequirements.push(
+        "Password must contain at least one uppercase letter."
+      );
+    }
+    if (!status.containsNumericCharacter) {
+      passwordRequirements.push("Password must contain at least one number.");
+    }
+    if (!status.containsNonAlphanumericCharacter) {
+      passwordRequirements.push(
+        "Password must contain at least one special character."
+      );
+    }
+
+    if (passwordRequirements.length > 0) {
+      toast.warning(`${passwordRequirements[0]}`);
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      toast.success("Account created successfully!");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Registration failed. Please try again.");
+      console.error("Firebase registration error:", error);
+    }
   };
 
   return (
@@ -81,25 +113,6 @@ function Register() {
               </div>
             </div>
             <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm/6 font-medium text-gray-900"
-              >
-                Confirm Password
-              </label>
-              <div className="mt-2">
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  id="confirmPassword"
-                  autoComplete="new-password"
-                  required
-                  // onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                ></input>
-              </div>
-            </div>
-            <div>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -108,7 +121,7 @@ function Register() {
               </button>
             </div>
           </form>
-          <p className="mt-2 text-center text-sm/6 text-gray-500">
+          <p className="mt-10 text-center text-sm/6 text-gray-500">
             Already have an account?
             <Link
               to="/login"
@@ -118,12 +131,6 @@ function Register() {
               Login here
             </Link>
           </p>
-          <Link
-            to="/"
-            className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 mt-4 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Back to Home
-          </Link>
         </div>
       </div>
     </>
