@@ -1,21 +1,50 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   validatePassword,
 } from "firebase/auth";
 import { toast } from "react-toastify";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 function Register() {
   const navigate = useNavigate();
 
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleRegistration = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // username validation
+    if (username.length < 3 || username.length > 20) {
+      toast.warning("Username must be between 3 and 20 characters.");
+      return;
+    }
+
+    if (/\s/.test(username)) {
+      toast.warning("Username cannot contain any spaces.");
+      return;
+    }
+
+    if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+      toast.warning(
+        "Username can only contain letters, numbers, hyphens, and underscores."
+      );
+      return;
+    }
+
+    const usernameDocRef = doc(db, "usernames", username);
+    const usernameDoc = await getDoc(usernameDocRef);
+
+    if (usernameDoc.exists()) {
+      toast.warning("Username is already taken. Please choose another one.");
+      return;
+    }
+
+    // password validation
     const status = await validatePassword(auth, password);
     const passwordRequirements = [];
 
@@ -49,7 +78,22 @@ function Register() {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const userDocRef = doc(db, "users", userCredential.user.uid);
+      await setDoc(userDocRef, {
+        username: username,
+        highscore: 0,
+      });
+
+      await setDoc(usernameDocRef, {
+        uid: userCredential.user.uid,
+      });
+
       toast.success("Account created successfully!");
       navigate("/login");
     } catch (error) {
@@ -79,6 +123,24 @@ function Register() {
                 htmlFor="email"
                 className="block text-sm/6 font-medium text-gray-900"
               >
+                Username
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  required
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                ></input>
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm/6 font-medium text-gray-900"
+              >
                 Email address
               </label>
               <div className="mt-2">
@@ -98,7 +160,7 @@ function Register() {
                 htmlFor="password"
                 className="block text-sm/6 font-medium text-gray-900"
               >
-                Create Password
+                Password
               </label>
               <div className="mt-2">
                 <input
