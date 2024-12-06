@@ -37,7 +37,7 @@ function Home() {
 
   if (isLoggedIn === null) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center h-screen bg-custom-gradient">
         <button
           type="button"
           className="flex justify-center items-center px-4 py-2 bg-blue-600 text-white rounded-full"
@@ -69,7 +69,7 @@ function Home() {
     );
   } else if (isLoggedIn) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <div className="flex flex-col items-center justify-center h-screen bg-custom-gradient">
         <h1 className="text-4xl font-bold mb-6">ByteSize Trivia</h1>
         <div className="flex space-x-4">
           <Link
