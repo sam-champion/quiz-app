@@ -73,14 +73,12 @@ function Login() {
                 >
                   Password
                 </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
+                <Link
+                  to="/resetpassword"
+                  className="text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+                >
+                  Forgot password?
+                </Link>
               </div>
               <div className="mt-2">
                 <input

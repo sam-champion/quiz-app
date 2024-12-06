@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
+import ForgotPassword from "./pages/ForgotPassword.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="resetpassword" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
