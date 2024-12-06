@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
-import ForgotPassword from "./pages/ForgotPassword.tsx";
+import ForgotPassword from "./pages/ResetPassword.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

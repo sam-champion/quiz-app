@@ -4,12 +4,12 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
 
-function ForgotPassword() {
+function ResetPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleForgotPassword = async (e: FormEvent<HTMLFormElement>) => {
+  const handleResetPassword = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -49,7 +49,7 @@ function ForgotPassword() {
         </div>
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={handleForgotPassword}>
+          <form className="space-y-6" onSubmit={handleResetPassword}>
             <div>
               <label
                 htmlFor="email"
@@ -125,4 +125,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default ResetPassword;
