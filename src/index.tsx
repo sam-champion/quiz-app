@@ -9,6 +9,7 @@ import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
+import NotFound404 from "./pages/NotFound404.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -25,6 +26,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="resetpassword" element={<ResetPassword />} />
+        <Route path="*" element={<NotFound404 />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
