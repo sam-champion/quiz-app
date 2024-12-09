@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import Logo from "../components/LogoIcon";
 
 function Register() {
   const navigate = useNavigate();
@@ -106,11 +107,14 @@ function Register() {
     <>
       <div className="flex h-full flex-col justify-center px-6 py-12 lg:px-8 bg-custom-gradient">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
+          <div className="flex flex-col items-center">
+            <div className="w-32 ">
+              <Logo className="text-pink-300" />
+            </div>
+            <h1 className="text-center font-video text-2xl font-light">
+              ByteSize Trivia
+            </h1>
+          </div>
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
             Sign up to an account
           </h2>

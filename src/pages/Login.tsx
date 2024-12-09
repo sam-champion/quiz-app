@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
+import Logo from "../components/LogoIcon";
 
 function Login() {
   const navigate = useNavigate();
@@ -33,11 +34,14 @@ function Login() {
     <>
       <div className="flex h-full flex-col justify-center px-6 py-12 lg:px-8 bg-custom-gradient">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Byte Size Trivia"
-          />
+          <div className="flex flex-col items-center">
+            <div className="w-32 ">
+              <Logo className="text-pink-300" />
+            </div>
+            <h1 className="text-center font-video text-2xl font-light">
+              ByteSize Trivia
+            </h1>
+          </div>
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-800">
             Sign in to your account
           </h2>
