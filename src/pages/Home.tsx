@@ -8,13 +8,13 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import SkipIcon from "../components/SkipIcon";
 import Navbar from "../components/Navbar";
 import Timer from "../components/Timer";
+import QuestionAndAnswers from "../components/QuestionAndAnswers";
 
 function Home() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [quizStarted, setQuizStarted] = useState(false);
   const [questions, setQuestions] = useState<TriviaQuestion[]>([]);
-  const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [usedQuestionIds, setUsedQuestionIds] = useState<Set<string>>(
     new Set()
@@ -48,28 +48,6 @@ function Home() {
     });
     return () => authStateListener();
   }, []);
-
-  const fisherYatesShuffle = (array: string[]) => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
-
-  useEffect(() => {
-    if (quizStarted && questions.length > 0) {
-      const currentQuestion = questions[currentQuestionIndex];
-      if (currentQuestion) {
-        const answers = [
-          ...currentQuestion.incorrectAnswers,
-          currentQuestion.correctAnswer,
-        ];
-        setShuffledAnswers(fisherYatesShuffle(answers));
-      }
-    }
-  }, [currentQuestionIndex, questions, quizStarted]);
 
   const handleLogout = () => {
     toast
@@ -152,11 +130,6 @@ function Home() {
       </div>
     );
   } else if (isLoggedIn) {
-    const currentQuestion =
-      quizStarted && questions.length > 0
-        ? questions[currentQuestionIndex]
-        : null;
-
     return (
       <div className="h-screen bg-custom-gradient flex flex-col">
         <Navbar />
@@ -181,22 +154,14 @@ function Home() {
               Start Quiz
             </button>
           </div>
-        ) : currentQuestion && shuffledAnswers ? (
+        ) : questions.length !== 0 ? (
           <div className="flex-grow flex flex-col items-center justify-center">
-            <h2 className="text-2xl text-center font-bold mb-10 max-w-[80%]">
-              {currentQuestion.question.text}
-            </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 max-w-[80%]">
-              {shuffledAnswers.map((answer, index) => (
-                <button
-                  key={index}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-500"
-                  onClick={() => handleAnswer(answer)}
-                >
-                  {answer}
-                </button>
-              ))}
-            </div>
+            <QuestionAndAnswers
+              quizStarted={quizStarted}
+              questions={questions}
+              currentQuestionIndex={currentQuestionIndex}
+              handleAnswer={handleAnswer}
+            />
             {skipsRemaining > 0 && (
               <button
                 className="mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500"
