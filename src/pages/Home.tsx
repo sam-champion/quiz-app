@@ -12,12 +12,14 @@ function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [quizStarted, setQuizStarted] = useState(false);
   const [questions, setQuestions] = useState<TriviaQuestion[]>([]);
+  const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [usedQuestionIds, setUsedQuestionIds] = useState<Set<string>>(
     new Set()
   );
   const [skipsRemaining, setSkipsRemaining] = useState(3);
   const [score, setScore] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState(30);
 
   type TriviaQuestion = {
     id: string;
@@ -46,6 +48,50 @@ function Home() {
     return () => authStateListener();
   }, []);
 
+  // timer
+  useEffect(() => {
+    if (!quizStarted) return;
+
+    setTimeRemaining(30);
+
+    const interval = setInterval(() => {
+      setTimeRemaining((prevTime) => {
+        if (prevTime === 1) {
+          if (skipsRemaining > 0) {
+            handleSkip();
+          } else {
+            resetQuizState();
+          }
+        }
+        return Math.max(prevTime - 1, 0);
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [quizStarted, currentQuestionIndex, skipsRemaining]);
+
+  const fisherYatesShuffle = (array: string[]) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  useEffect(() => {
+    if (quizStarted && questions.length > 0) {
+      const currentQuestion = questions[currentQuestionIndex];
+      if (currentQuestion) {
+        const answers = [
+          ...currentQuestion.incorrectAnswers,
+          currentQuestion.correctAnswer,
+        ];
+        setShuffledAnswers(fisherYatesShuffle(answers));
+      }
+    }
+  }, [currentQuestionIndex, questions, quizStarted]);
+
   const handleLogout = () => {
     toast
       .promise(signOut(auth), {
@@ -68,6 +114,7 @@ function Home() {
     setUsedQuestionIds(new Set());
     setSkipsRemaining(3);
     setScore(0);
+    setTimeRemaining(30);
   };
 
   const fetchTriviaQuestions = async () => {
@@ -131,11 +178,6 @@ function Home() {
       quizStarted && questions.length > 0
         ? questions[currentQuestionIndex]
         : null;
-    const allAnswers =
-      currentQuestion &&
-      [...currentQuestion.incorrectAnswers, currentQuestion.correctAnswer].sort(
-        () => Math.random() - 0.5
-      );
 
     return (
       <div className="h-screen bg-custom-gradient flex flex-col">
@@ -161,13 +203,13 @@ function Home() {
               Start Quiz
             </button>
           </div>
-        ) : currentQuestion && allAnswers ? (
+        ) : currentQuestion && shuffledAnswers ? (
           <div className="flex-grow flex flex-col items-center justify-center">
             <h2 className="text-2xl text-center font-bold mb-10 max-w-[80%]">
               {currentQuestion.question.text}
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 max-w-[80%]">
-              {allAnswers.map((answer, index) => (
+              {shuffledAnswers.map((answer, index) => (
                 <button
                   key={index}
                   className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-500"
@@ -189,6 +231,7 @@ function Home() {
               </button>
             )}
             <p className="text-3xl mt-5">Score: {score}</p>
+            <p className="text-3xl mt-5">Time Remaining: {timeRemaining}</p>
           </div>
         ) : (
           <div className="flex h-full items-center justify-center">
