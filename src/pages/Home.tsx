@@ -5,8 +5,8 @@ import { auth } from "../firebase";
 import { toast } from "react-toastify";
 
 import LoadingSpinner from "../components/LoadingSpinner";
-import SkipIcon from "../components/SkipIcon";
 import Navbar from "../components/Navbar";
+import SkipBtn from "../components/SkipBtn";
 import Timer from "../components/Timer";
 import QuestionAndAnswers from "../components/QuestionAndAnswers";
 
@@ -162,17 +162,7 @@ function Home() {
               currentQuestionIndex={currentQuestionIndex}
               handleAnswer={handleAnswer}
             />
-            {skipsRemaining > 0 && (
-              <button
-                className="mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500"
-                onClick={handleSkip}
-              >
-                <div className="flex flex-row">
-                  <span className="me-1">Skip</span>
-                  <SkipIcon size={24} className="text-white" />
-                </div>
-              </button>
-            )}
+            <SkipBtn handleSkip={handleSkip} skipsRemaining={skipsRemaining} />
             <p className="text-3xl mt-5">Score: {score}</p>
             <Timer
               quizStarted={quizStarted}
