@@ -3,9 +3,11 @@ import { useNavigate } from "react-router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
+
 import LoadingSpinner from "../components/LoadingSpinner";
 import SkipIcon from "../components/SkipIcon";
 import Navbar from "../components/Navbar";
+import Timer from "../components/Timer";
 
 function Home() {
   const navigate = useNavigate();
@@ -19,7 +21,6 @@ function Home() {
   );
   const [skipsRemaining, setSkipsRemaining] = useState(3);
   const [score, setScore] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState(30);
 
   type TriviaQuestion = {
     id: string;
@@ -47,28 +48,6 @@ function Home() {
     });
     return () => authStateListener();
   }, []);
-
-  // timer
-  useEffect(() => {
-    if (!quizStarted) return;
-
-    setTimeRemaining(30);
-
-    const interval = setInterval(() => {
-      setTimeRemaining((prevTime) => {
-        if (prevTime === 1) {
-          if (skipsRemaining > 0) {
-            handleSkip();
-          } else {
-            resetQuizState();
-          }
-        }
-        return Math.max(prevTime - 1, 0);
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [quizStarted, currentQuestionIndex, skipsRemaining]);
 
   const fisherYatesShuffle = (array: string[]) => {
     const shuffled = [...array];
@@ -114,7 +93,6 @@ function Home() {
     setUsedQuestionIds(new Set());
     setSkipsRemaining(3);
     setScore(0);
-    setTimeRemaining(30);
   };
 
   const fetchTriviaQuestions = async () => {
@@ -231,7 +209,14 @@ function Home() {
               </button>
             )}
             <p className="text-3xl mt-5">Score: {score}</p>
-            <p className="text-3xl mt-5">Time Remaining: {timeRemaining}</p>
+            <Timer
+              quizStarted={quizStarted}
+              currentQuestionIndex={currentQuestionIndex}
+              skipsRemaining={skipsRemaining}
+              handleSkip={handleSkip}
+              resetQuizState={resetQuizState}
+              initialTime={15}
+            />
           </div>
         ) : (
           <div className="flex h-full items-center justify-center">

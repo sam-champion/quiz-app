@@ -35,10 +35,10 @@ function Login() {
       <div className="flex h-full flex-col justify-center px-6 py-12 lg:px-8 bg-custom-gradient">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="flex flex-col items-center">
-            <div className="w-32 ">
+            <div className="w-28">
               <Logo className="text-pink-300" />
             </div>
-            <h1 className="text-center font-video text-2xl font-light">
+            <h1 className="text-center font-video text-xl font-light">
               ByteSize Trivia
             </h1>
           </div>
