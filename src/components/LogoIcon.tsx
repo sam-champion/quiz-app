@@ -5,7 +5,7 @@ type LogoProps = {
   className?: string;
   strokeWidth?: number;
 };
-const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
+const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 6 }) => {
   return (
     <svg
       version="1.1"
@@ -18,7 +18,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M825.597595,593.566162 
 		  C813.211670,608.633911 797.868958,617.767883 778.701294,620.129333 
@@ -260,7 +260,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M640.656738,445.205231 
 		  C638.645630,447.261322 639.002869,448.882782 640.670349,450.607086 
@@ -299,7 +299,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M457.622314,336.000214 
 		  C457.589874,312.027374 456.638275,288.553040 457.633514,265.082886 
@@ -332,7 +332,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M284.762451,312.173218 
 		  C290.755829,304.279510 297.174316,297.559204 307.307983,295.603729 
@@ -361,7 +361,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M611.697510,500.636475 
 		  C615.252197,500.884460 617.949280,500.031158 620.643066,498.387177 
@@ -388,7 +388,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M797.355225,394.673767 
 		  C799.637207,400.625977 802.450195,404.995697 809.432983,406.003082 
@@ -413,7 +413,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M283.200012,406.649719 
 		  C278.295044,398.429230 278.546021,390.253265 283.646942,384.571686 
@@ -431,7 +431,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M803.479675,521.548462 
 		  C811.262512,531.369629 812.048767,543.454651 803.652771,549.489563 
@@ -451,7 +451,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M614.415588,299.534515 
 		  C620.562988,313.227600 613.469788,325.608765 600.007996,325.364594 
@@ -469,7 +469,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M433.874573,324.094971 
 		  C445.313171,336.553467 447.321442,350.674530 439.717682,363.595459 
@@ -488,7 +488,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M440.359985,301.898926 
 		  C440.968262,306.893707 439.165253,308.704285 434.495209,308.391479 
@@ -506,7 +506,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M624.065308,372.031616 
 		  C615.458496,380.291656 604.630005,381.861450 595.567078,376.389984 
@@ -519,7 +519,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M260.875732,447.565796 
 		  C260.165649,436.997040 263.929962,429.124664 273.287720,424.786652 
@@ -533,7 +533,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M744.253601,494.514496 
 		  C752.766663,500.843414 754.482361,510.084717 748.979309,518.368469 
@@ -545,7 +545,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M660.756897,437.891449 
 		  C657.140564,429.374481 658.201416,421.763794 663.463806,416.833893 
@@ -558,7 +558,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M732.819336,483.551422 
 		  C725.509888,480.085602 723.019958,474.272430 723.826721,467.026550 
@@ -572,7 +572,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", strokeWidth = 12 }) => {
       <path
         fill="currentColor"
         opacity="1.000000"
-        stroke="black"
+        stroke="#4c0519"
         d="
 	  M730.317749,669.612915 
 		  C727.907532,679.630127 719.545776,686.530762 710.764343,686.170349 
