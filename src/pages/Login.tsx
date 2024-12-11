@@ -1,19 +1,19 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import Logo from "../components/LogoIcon";
 
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const loginPromise = signInWithEmailAndPassword(auth, email, password);
+    const loginPromise = login(email, password);
 
     toast.promise(loginPromise, {
       pending: "Logging in...",

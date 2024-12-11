@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { TriviaQuestion, QuizState } from "../types";
 
@@ -13,8 +12,7 @@ import QuestionAndAnswers from "../components/QuestionAndAnswers";
 
 function Home() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const { logout } = useAuth();
   const [quizState, setQuizState] = useState<QuizState>({
     quizStarted: false,
     questions: [],
@@ -24,22 +22,10 @@ function Home() {
     score: 0,
   });
 
-  useEffect(() => {
-    const authStateListener = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsLoggedIn(true);
-        setIsLoading(false);
-      } else {
-        setIsLoggedIn(false);
-        navigate("/login");
-      }
-    });
-    return () => authStateListener();
-  }, []);
-
   const handleLogout = () => {
+    const logoutPromise = logout();
     toast
-      .promise(signOut(auth), {
+      .promise(logoutPromise, {
         pending: "Logging out...",
         success: "Logged out successfully!",
         error: "An error occurred. Please try again.",
@@ -121,64 +107,56 @@ function Home() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-custom-gradient">
-        <LoadingSpinner />
+  return (
+    <div className="h-screen bg-custom-gradient flex flex-col">
+      <Navbar />
+      <div className="flex justify-end">
+        <button
+          className="px-4 py-2 m-3 w-fit bg-indigo-600 text-white rounded hover:bg-indigo-500"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
       </div>
-    );
-  } else if (isLoggedIn) {
-    return (
-      <div className="h-screen bg-custom-gradient flex flex-col">
-        <Navbar />
-        <div className="flex justify-end">
+
+      {!quizState.quizStarted ? (
+        <div className="flex flex-grow items-center justify-center">
           <button
-            className="px-4 py-2 m-3 w-fit bg-indigo-600 text-white rounded hover:bg-indigo-500"
-            onClick={handleLogout}
+            onClick={() => {
+              setQuizState((prev) => ({
+                ...prev,
+                quizStarted: true,
+              }));
+              fetchTriviaQuestions();
+            }}
+            className="px-8 py-4 bg-green-600 text-white rounded hover:bg-green-500 text-xl"
           >
-            Logout
+            Start Quiz
           </button>
         </div>
-
-        {!quizState.quizStarted ? (
-          <div className="flex flex-grow items-center justify-center">
-            <button
-              onClick={() => {
-                setQuizState((prev) => ({
-                  ...prev,
-                  quizStarted: true,
-                }));
-                fetchTriviaQuestions();
-              }}
-              className="px-8 py-4 bg-green-600 text-white rounded hover:bg-green-500 text-xl"
-            >
-              Start Quiz
-            </button>
-          </div>
-        ) : quizState.questions.length !== 0 ? (
-          <div className="flex-grow flex flex-col items-center justify-center">
-            <QuestionAndAnswers
-              quizState={quizState}
-              handleAnswer={handleAnswer}
-            />
-            <SkipBtn
-              handleSkip={handleSkip}
-              skipsRemaining={quizState.skipsRemaining}
-            />
-            <p className="text-3xl mt-5">Score: {quizState.score}</p>
-            <Timer
-              quizState={quizState}
-              handleSkip={handleSkip}
-              initialTime={15}
-            />
-          </div>
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <LoadingSpinner />
-          </div>
-        )}
-      </div>
-    );
-  }
+      ) : quizState.questions.length !== 0 ? (
+        <div className="flex-grow flex flex-col items-center justify-center">
+          <QuestionAndAnswers
+            quizState={quizState}
+            handleAnswer={handleAnswer}
+          />
+          <SkipBtn
+            handleSkip={handleSkip}
+            skipsRemaining={quizState.skipsRemaining}
+          />
+          <p className="text-3xl mt-5">Score: {quizState.score}</p>
+          <Timer
+            quizState={quizState}
+            handleSkip={handleSkip}
+            initialTime={15}
+          />
+        </div>
+      ) : (
+        <div className="flex h-full items-center justify-center">
+          <LoadingSpinner />
+        </div>
+      )}
+    </div>
+  );
 }
 export default Home;
