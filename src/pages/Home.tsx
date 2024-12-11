@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
+import { TriviaQuestion, QuizState } from "../types";
 
 import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
@@ -12,35 +13,22 @@ import QuestionAndAnswers from "../components/QuestionAndAnswers";
 
 function Home() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
-  const [quizStarted, setQuizStarted] = useState(false);
-  const [questions, setQuestions] = useState<TriviaQuestion[]>([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [usedQuestionIds, setUsedQuestionIds] = useState<Set<string>>(
-    new Set()
-  );
-  const [skipsRemaining, setSkipsRemaining] = useState(3);
-  const [score, setScore] = useState(0);
-
-  type TriviaQuestion = {
-    id: string;
-    category: string;
-    correctAnswer: string;
-    incorrectAnswers: string[];
-    question: {
-      text: string;
-    };
-    tags: string[];
-    type: string;
-    difficulty: string;
-    regions: string[];
-    isNiche: boolean;
-  };
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [quizState, setQuizState] = useState<QuizState>({
+    quizStarted: false,
+    questions: [],
+    currentQuestionIndex: 0,
+    usedQuestionIds: new Set<string>(),
+    skipsRemaining: 3,
+    score: 0,
+  });
 
   useEffect(() => {
     const authStateListener = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLoggedIn(true);
+        setIsLoading(false);
       } else {
         setIsLoggedIn(false);
         navigate("/login");
@@ -64,32 +52,29 @@ function Home() {
       });
   };
 
-  const resetQuizState = () => {
-    setQuizStarted(false);
-    setQuestions([]);
-    setCurrentQuestionIndex(0);
-    setUsedQuestionIds(new Set());
-    setSkipsRemaining(3);
-    setScore(0);
-  };
-
   const fetchTriviaQuestions = async () => {
     try {
       const response = await fetch(
         "https://the-trivia-api.com/v2/questions?limit=50"
       );
       const data: TriviaQuestion[] = await response.json();
-
-      const newQuestions = data.filter((q) => !usedQuestionIds.has(q.id));
-
-      if (newQuestions.length === 0) {
-        console.log("Failed to fetch any new trivia questions:");
-        return;
-      }
       console.log(data);
-      setQuestions((prev) => [...prev, ...newQuestions]);
-      const newIds = newQuestions.map((q) => q.id);
-      setUsedQuestionIds((prev) => new Set([...prev, ...newIds]));
+
+      const newQuestions = data.filter(
+        (q) => !quizState.usedQuestionIds.has(q.id)
+      );
+      if (newQuestions.length === 0) {
+        throw new Error("No new questions available");
+      }
+
+      setQuizState((prev) => ({
+        ...prev,
+        questions: [...prev.questions, ...newQuestions],
+        usedQuestionIds: new Set([
+          ...prev.usedQuestionIds,
+          ...newQuestions.map((q) => q.id),
+        ]),
+      }));
     } catch (error) {
       console.error("Failed to fetch trivia questions:", error);
       toast.error("Failed to load questions. Please try again.");
@@ -97,10 +82,13 @@ function Home() {
   };
 
   const handleSkip = () => {
-    if (skipsRemaining > 0) {
-      setSkipsRemaining((prev) => prev - 1);
-      setCurrentQuestionIndex((prev) => prev + 1);
-      if (questions.length - currentQuestionIndex <= 10) {
+    if (quizState.skipsRemaining > 0) {
+      setQuizState((prev) => ({
+        ...prev,
+        skipsRemaining: prev.skipsRemaining - 1,
+        currentQuestionIndex: prev.currentQuestionIndex + 1,
+      }));
+      if (quizState.questions.length - quizState.currentQuestionIndex <= 10) {
         fetchTriviaQuestions();
       }
     } else {
@@ -109,21 +97,31 @@ function Home() {
   };
 
   const handleAnswer = (userAnswer: string) => {
-    const currentQuestion = questions[currentQuestionIndex];
+    const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+
     if (userAnswer === currentQuestion.correctAnswer) {
       toast.success("Correct!");
-      setCurrentQuestionIndex((prev) => prev + 1);
-      setScore((prev) => prev + 1);
-      if (questions.length - currentQuestionIndex <= 10) {
-        fetchTriviaQuestions();
-      }
+
+      setQuizState((prev) => {
+        const nextIndex = prev.currentQuestionIndex + 1;
+        if (prev.questions.length - nextIndex <= 10) {
+          fetchTriviaQuestions();
+        }
+        return {
+          ...prev,
+          currentQuestionIndex: nextIndex,
+          score: prev.score + 1,
+        };
+      });
     } else {
       toast.error("Wrong answer! Game over.");
-      resetQuizState();
+      navigate("/results", {
+        state: { quizState: quizState, completedQuiz: true },
+      });
     }
   };
 
-  if (isLoggedIn === null) {
+  if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center bg-custom-gradient">
         <LoadingSpinner />
@@ -142,11 +140,14 @@ function Home() {
           </button>
         </div>
 
-        {!quizStarted ? (
+        {!quizState.quizStarted ? (
           <div className="flex flex-grow items-center justify-center">
             <button
               onClick={() => {
-                setQuizStarted(true);
+                setQuizState((prev) => ({
+                  ...prev,
+                  quizStarted: true,
+                }));
                 fetchTriviaQuestions();
               }}
               className="px-8 py-4 bg-green-600 text-white rounded hover:bg-green-500 text-xl"
@@ -154,22 +155,20 @@ function Home() {
               Start Quiz
             </button>
           </div>
-        ) : questions.length !== 0 ? (
+        ) : quizState.questions.length !== 0 ? (
           <div className="flex-grow flex flex-col items-center justify-center">
             <QuestionAndAnswers
-              quizStarted={quizStarted}
-              questions={questions}
-              currentQuestionIndex={currentQuestionIndex}
+              quizState={quizState}
               handleAnswer={handleAnswer}
             />
-            <SkipBtn handleSkip={handleSkip} skipsRemaining={skipsRemaining} />
-            <p className="text-3xl mt-5">Score: {score}</p>
-            <Timer
-              quizStarted={quizStarted}
-              currentQuestionIndex={currentQuestionIndex}
-              skipsRemaining={skipsRemaining}
+            <SkipBtn
               handleSkip={handleSkip}
-              resetQuizState={resetQuizState}
+              skipsRemaining={quizState.skipsRemaining}
+            />
+            <p className="text-3xl mt-5">Score: {quizState.score}</p>
+            <Timer
+              quizState={quizState}
+              handleSkip={handleSkip}
               initialTime={15}
             />
           </div>

@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Home from "./pages/Home.tsx";
+import Results from "./pages/Results.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
       />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/results" element={<Results />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="resetpassword" element={<ResetPassword />} />
