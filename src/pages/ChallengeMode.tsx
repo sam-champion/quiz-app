@@ -12,7 +12,6 @@ import QuestionAndAnswers from "../components/QuestionAndAnswers";
 
 function ChallengeMode() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
   const [quizState, setQuizState] = useState<QuizState>({
     quizStarted: false,
     questions: [],
@@ -21,22 +20,6 @@ function ChallengeMode() {
     skipsRemaining: 3,
     score: 0,
   });
-
-  const handleLogout = () => {
-    const logoutPromise = logout();
-    toast
-      .promise(logoutPromise, {
-        pending: "Logging out...",
-        success: "Logged out successfully!",
-        error: "An error occurred. Please try again.",
-      })
-      .then(() => {
-        navigate("/login");
-      })
-      .catch((error) => {
-        console.error("Logout error:", error);
-      });
-  };
 
   const fetchTriviaQuestions = async () => {
     try {
@@ -110,15 +93,6 @@ function ChallengeMode() {
   return (
     <div className="h-screen bg-custom-gradient flex flex-col">
       <Navbar />
-      <div className="flex justify-end">
-        <button
-          className="px-4 py-2 m-3 w-fit bg-indigo-600 text-white rounded hover:bg-indigo-500"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
-      </div>
-
       {!quizState.quizStarted ? (
         <div className="flex flex-grow items-center justify-center">
           <button
