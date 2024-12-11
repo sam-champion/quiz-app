@@ -105,7 +105,7 @@ function Register() {
 
   return (
     <>
-      <div className="flex h-full flex-col justify-center px-6 py-12 lg:px-8 bg-custom-gradient">
+      <div className="flex h-full flex-col justify-center px-6 py-12 lg:px-8 bg-white">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="flex flex-col items-center">
             <div className="w-28 ">
@@ -136,7 +136,7 @@ function Register() {
                   id="username"
                   required
                   onChange={(e) => setUsername(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 shadow-md text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 ></input>
               </div>
             </div>
@@ -155,7 +155,7 @@ function Register() {
                   autoComplete="email"
                   required
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 shadow-md text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 ></input>
               </div>
             </div>
@@ -174,7 +174,7 @@ function Register() {
                   autoComplete="new-password"
                   required
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 shadow-md text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 ></input>
               </div>
             </div>
