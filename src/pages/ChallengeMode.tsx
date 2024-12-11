@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { TriviaQuestion, QuizState } from "../types";
 
