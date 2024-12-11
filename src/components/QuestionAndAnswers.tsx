@@ -1,34 +1,23 @@
 import { useEffect, useState } from "react";
+import { TriviaQuestion } from "../types";
 
 interface QuestionAndAnswersProps {
-  quizStarted: boolean;
-  questions: TriviaQuestion[];
-  currentQuestionIndex: number;
+  quizState: {
+    quizStarted: boolean;
+    questions: TriviaQuestion[];
+    currentQuestionIndex: number;
+    skipsRemaining: number;
+    score: number;
+  };
   handleAnswer: (userAnswer: string) => void;
 }
 
-type TriviaQuestion = {
-  id: string;
-  category: string;
-  correctAnswer: string;
-  incorrectAnswers: string[];
-  question: {
-    text: string;
-  };
-  tags: string[];
-  type: string;
-  difficulty: string;
-  regions: string[];
-  isNiche: boolean;
-};
-
 const QuestionAndAnswers: React.FC<QuestionAndAnswersProps> = ({
-  quizStarted,
-  questions,
-  currentQuestionIndex,
+  quizState,
   handleAnswer,
 }) => {
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
+  const { quizStarted, questions, currentQuestionIndex } = quizState;
 
   const currentQuestion = questions[currentQuestionIndex];
 

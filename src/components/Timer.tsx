@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { TriviaQuestion } from "../types";
 
 interface TimerProps {
-  quizStarted: boolean;
-  currentQuestionIndex: number;
-  skipsRemaining: number;
+  quizState: {
+    quizStarted: boolean;
+    questions: TriviaQuestion[];
+    currentQuestionIndex: number;
+    skipsRemaining: number;
+    score: number;
+  };
   handleSkip: () => void;
-  resetQuizState: () => void;
   initialTime: number;
 }
 
 const Timer: React.FC<TimerProps> = ({
-  quizStarted,
-  currentQuestionIndex,
-  skipsRemaining,
+  quizState,
   handleSkip,
-  resetQuizState,
   initialTime,
 }) => {
+  const { quizStarted, skipsRemaining, currentQuestionIndex } = quizState;
   const [timeRemaining, setTimeRemaining] = useState(30);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!quizStarted) return;
@@ -30,7 +34,9 @@ const Timer: React.FC<TimerProps> = ({
           if (skipsRemaining > 0) {
             setTimeout(handleSkip, 0);
           } else {
-            setTimeout(resetQuizState, 0);
+            navigate("/results", {
+              state: { quizState: quizState, completedQuiz: true },
+            });
           }
         }
         return Math.max(prevTime - 1, 0);
