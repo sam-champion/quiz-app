@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 
 import Home from "./pages/Home.tsx";
+import Quiz from "./pages/Quiz.tsx";
 import Results from "./pages/Results.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
@@ -25,23 +26,11 @@ createRoot(document.getElementById("root")!).render(
           pauseOnHover={false}
           theme="light"
         />
+        {/* prettier-ignore */}
         <Routes>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/results"
-            element={
-              <ProtectedRoute>
-                <Results />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/" element={<ProtectedRoute> <Home /> </ProtectedRoute>}/>
+          <Route path="/quiz" element={<ProtectedRoute> <Quiz /> </ProtectedRoute>}/>
+          <Route path="/results" element={<ProtectedRoute> <Results /> </ProtectedRoute>}/>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="resetpassword" element={<ResetPassword />} />
