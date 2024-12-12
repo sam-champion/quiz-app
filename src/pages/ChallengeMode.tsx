@@ -66,26 +66,33 @@ function ChallengeMode() {
 
   const handleAnswer = (userAnswer: string) => {
     const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+    const isCorrect = userAnswer === currentQuestion.correctAnswer;
 
-    if (userAnswer === currentQuestion.correctAnswer) {
-      toast.success("Correct!");
+    setQuizState((prev) => ({
+      ...prev,
+      score: prev.score + (isCorrect ? 1 : 0),
+    }));
 
-      setQuizState((prev) => {
-        const nextIndex = prev.currentQuestionIndex + 1;
-        if (prev.questions.length - nextIndex <= 10) {
-          fetchTriviaQuestions();
-        }
-        return {
-          ...prev,
-          currentQuestionIndex: nextIndex,
-          score: prev.score + 1,
-        };
-      });
+    if (isCorrect) {
+      setTimeout(() => {
+        setQuizState((prev) => {
+          const nextIndex = prev.currentQuestionIndex + 1;
+          if (prev.questions.length - nextIndex <= 10) {
+            fetchTriviaQuestions();
+          }
+          return {
+            ...prev,
+            currentQuestionIndex: nextIndex,
+          };
+        });
+      }, 1500);
     } else {
       toast.error("Wrong answer! Game over.");
-      navigate("/results", {
-        state: { quizState: quizState, completedQuiz: true },
-      });
+      setTimeout(() => {
+        navigate("/results", {
+          state: { quizState: quizState, completedQuiz: true },
+        });
+      }, 1500);
     }
   };
 

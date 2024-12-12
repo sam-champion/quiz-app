@@ -72,23 +72,23 @@ const CustomMode = () => {
     const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
     const isCorrect = userAnswer === currentQuestion.correctAnswer;
 
-    if (isCorrect) {
-      toast.success("Correct!");
-    } else {
-      toast.error("Wrong answer!");
-    }
-
     setQuizState((prev) => ({
       ...prev,
       score: prev.score + (isCorrect ? 1 : 0),
-      currentQuestionIndex: prev.currentQuestionIndex + 1,
     }));
 
-    if (quizState.currentQuestionIndex === quizState.questions.length - 1) {
-      navigate("/results", {
-        state: { quizState, completedQuiz: true },
-      });
-    }
+    setTimeout(() => {
+      if (quizState.currentQuestionIndex === quizState.questions.length - 1) {
+        navigate("/results", {
+          state: { quizState, completedQuiz: true },
+        });
+        return;
+      }
+      setQuizState((prev) => ({
+        ...prev,
+        currentQuestionIndex: prev.currentQuestionIndex + 1,
+      }));
+    }, 1500);
   };
 
   return (
