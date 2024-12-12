@@ -43,7 +43,9 @@ const QuestionAndAnswers: React.FC<QuestionAndAnswersProps> = ({
   return (
     <>
       <h2 className="text-2xl text-center font-bold mb-10 max-w-[80%]">
-        {currentQuestion.question.text}
+        {typeof currentQuestion.question === "string"
+          ? currentQuestion.question
+          : currentQuestion.question.text}
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 max-w-[80%]">
         {shuffledAnswers.map((answer, index) => (
