@@ -97,7 +97,7 @@ function ChallengeMode() {
   };
 
   return (
-    <div className="h-screen bg-custom-gradient flex flex-col">
+    <div className="min-h-full bg-custom-gradient flex flex-col">
       <Navbar />
       {!quizState.quizStarted ? (
         <div className="flex flex-grow items-center justify-center">
@@ -116,6 +116,11 @@ function ChallengeMode() {
         </div>
       ) : quizState.questions.length !== 0 ? (
         <div className="flex-grow flex flex-col items-center justify-center">
+          <Timer
+            quizState={quizState}
+            handleSkip={handleSkip}
+            initialTime={15}
+          />
           <QuestionAndAnswers
             quizState={quizState}
             handleAnswer={handleAnswer}
@@ -124,15 +129,12 @@ function ChallengeMode() {
             handleSkip={handleSkip}
             skipsRemaining={quizState.skipsRemaining}
           />
-          <p className="text-3xl mt-5">Score: {quizState.score}</p>
-          <Timer
-            quizState={quizState}
-            handleSkip={handleSkip}
-            initialTime={15}
-          />
+          <p className="text-3xl mb-5" style={{ textAnchor: "middle" }}>
+            Score: {quizState.score}
+          </p>
         </div>
       ) : (
-        <div className="flex h-full items-center justify-center">
+        <div className="flex flex-grow h-full items-center justify-center">
           <LoadingSpinner />
         </div>
       )}
