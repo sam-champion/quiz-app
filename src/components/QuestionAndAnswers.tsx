@@ -107,12 +107,12 @@ const QuestionAndAnswers: React.FC<QuestionAndAnswersProps> = ({
 
   return (
     <>
-      <h2 className="text-2xl text-center font-bold mb-10 max-w-[80%]">
+      <h2 className="text-2xl text-center font-bold mb-5 max-w-[80%]">
         {typeof currentQuestion.question === "string"
           ? currentQuestion.question
           : currentQuestion.question.text}
       </h2>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 max-w-[80%]">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 max-w-[80%] mb-10">
         {shuffledAnswers.map((answer, index) => (
           <button
             className={`px-4 py-2 min-w-40 rounded ${getButtonClass(

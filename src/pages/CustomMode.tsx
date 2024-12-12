@@ -92,7 +92,7 @@ const CustomMode = () => {
   };
 
   return (
-    <div className="h-screen bg-custom-gradient flex flex-col">
+    <div className="min-h-screen bg-custom-gradient flex flex-col">
       <Navbar />
       {!quizState.quizStarted ? (
         <div className="flex flex-grow items-center justify-center">
