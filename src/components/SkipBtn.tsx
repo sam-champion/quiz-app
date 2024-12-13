@@ -10,11 +10,11 @@ const SkipBtn: React.FC<SkipBtnProps> = ({ handleSkip, skipsRemaining }) => {
     <>
       {skipsRemaining > 0 && (
         <button
-          className="mb-10 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500"
+          className="mt-10 px-10 py-2 border-4 border-pink-700 bg-gradient-to-b from-pink-500 to-rose-600 text-white rounded-xl shadow-lg focus:ring-2 focus:ring-white"
           onClick={handleSkip}
         >
-          <div className="flex flex-row">
-            <span className="me-1">Skip</span>
+          <div className="flex flex-row items-center justify-center">
+            <span className="me-1 text-lg">Skip</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"

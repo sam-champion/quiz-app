@@ -173,22 +173,24 @@ const CustomMode = () => {
             {/* Start Quiz Button */}
             <button
               type="submit"
-              className="w-full sm:w-60 py-3 mb-5 bg-gradient-to-b from-green-500 to-green-600 text-white font-medium text-lg rounded-xl shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 transition"
+              className="w-full sm:w-60 py-3 mb-5 bg-gradient-to-b from-green-500 to-green-600 text-white font-medium text-lg rounded-xl shadow-md focus:ring-2 focus:ring-white"
             >
               Start Quiz
             </button>
           </form>
         </div>
       ) : quizState.questions.length !== 0 ? (
-        <div className="flex-grow flex flex-col items-center justify-center">
+        <div className="flex-grow flex flex-col items-center justify-center py-10">
+          <div className="flex flex-col justify-center items-center space-y-2 mb-10">
+            <h2 className="text-3xl font-bold text-yellow-300">Question:</h2>
+            <p className="text-xl font-semibold text-yellow-300 mt-5">{`${
+              quizState.currentQuestionIndex + 1
+            } of ${quizState.questions.length}`}</p>
+          </div>
           <QuestionAndAnswers
             quizState={quizState}
             handleAnswer={handleAnswer}
           />
-          <p className="text-3xl mt-5">Score: {quizState.score}</p>
-          <p className="text-3xl mt-5">{`${
-            quizState.currentQuestionIndex + 1
-          } of ${quizState.questions.length}`}</p>
         </div>
       ) : (
         <div className="flex flex-grow h-full items-center justify-center">
