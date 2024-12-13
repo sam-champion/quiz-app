@@ -92,7 +92,7 @@ const CustomMode = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex flex-col">
+    <div className="min-h-screen bg-custom-gradient flex flex-col">
       <Navbar />
       {!quizState.quizStarted ? (
         <div className="flex flex-grow items-center justify-center px-4 sm:px-6">
@@ -173,7 +173,7 @@ const CustomMode = () => {
             {/* Start Quiz Button */}
             <button
               type="submit"
-              className="w-full sm:w-60 py-3 mb-5 bg-gradient-to-b from-indigo-500 to-indigo-600 text-white font-medium text-lg rounded-lg shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 transition"
+              className="w-full sm:w-60 py-3 mb-5 bg-gradient-to-b from-green-500 to-green-600 text-white font-medium text-lg rounded-xl shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 transition"
             >
               Start Quiz
             </button>
@@ -191,7 +191,7 @@ const CustomMode = () => {
           } of ${quizState.questions.length}`}</p>
         </div>
       ) : (
-        <div className="flex h-full items-center justify-center">
+        <div className="flex flex-grow h-full items-center justify-center">
           <LoadingSpinner />
         </div>
       )}
