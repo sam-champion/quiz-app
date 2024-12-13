@@ -5,7 +5,7 @@ export default {
     extend: {
       backgroundImage: {
         "custom-gradient":
-          "linear-gradient(to top right, #fecdd3 0%, #e0e7ff 65%, #7dd3fc 100%)",
+          "linear-gradient(to bottom right, #3b82f6, #a855f7, #ec4899)",
       },
       fontFamily: {
         video: ['"video"', "serif"],
