@@ -170,7 +170,7 @@ function ChallengeMode() {
                   }));
                   fetchTriviaQuestions();
                 }}
-                className="px-8 py-3 sm:w-60 bg-gradient-to-b from-green-500 to-green-600 text-white rounded-xl text-xl font-medium shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all"
+                className="px-8 py-3 sm:w-60 bg-gradient-to-b from-green-500 to-green-600 text-white rounded-xl text-xl font-medium shadow-md focus:ring-2 focus:ring-white"
               >
                 Start Quiz
               </button>
@@ -178,12 +178,15 @@ function ChallengeMode() {
           </div>
         </div>
       ) : quizState.questions.length !== 0 ? (
-        <div className="flex-grow flex flex-col items-center justify-center">
+        <div className="flex-grow flex flex-col items-center justify-center my-10">
           <Timer
             quizState={quizState}
             handleSkip={handleSkip}
             initialTime={15}
           />
+          <p className="text-3xl font-bold text-yellow-300 mb-10">
+            Question: {quizState.currentQuestionIndex + 1}
+          </p>
           <QuestionAndAnswers
             quizState={quizState}
             handleAnswer={handleAnswer}
@@ -192,9 +195,6 @@ function ChallengeMode() {
             handleSkip={handleSkip}
             skipsRemaining={quizState.skipsRemaining}
           />
-          <p className="text-3xl mb-5" style={{ textAnchor: "middle" }}>
-            Score: {quizState.score}
-          </p>
         </div>
       ) : (
         <div className="flex flex-grow h-full items-center justify-center">

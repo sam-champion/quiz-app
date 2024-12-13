@@ -65,7 +65,7 @@ const QuestionAndAnswers: React.FC<QuestionAndAnswersProps> = ({
     }
     return isAnswering
       ? "border-4 border-indigo-700 bg-indigo-600 text-white"
-      : "border-4 border-indigo-800 bg-indigo-600 text-white hover:bg-indigo-500";
+      : "border-4 border-indigo-800 bg-gradient-to-b from-indigo-500 to-indigo-600 text-white focus:ring-2 focus:ring-white";
   };
 
   const getIcon = (answer: string) => {
@@ -107,15 +107,15 @@ const QuestionAndAnswers: React.FC<QuestionAndAnswersProps> = ({
 
   return (
     <>
-      <h2 className="text-2xl text-center font-bold mb-5 max-w-[80%]">
+      <h2 className="text-2xl text-center text-white font-bold mb-10 max-w-[80%]">
         {typeof currentQuestion.question === "string"
           ? currentQuestion.question
           : currentQuestion.question.text}
       </h2>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 max-w-[80%] mb-10">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 max-w-[80%]">
         {shuffledAnswers.map((answer, index) => (
           <button
-            className={`px-4 py-2 min-w-40 rounded ${getButtonClass(
+            className={`text-xl px-4 py-2 min-w-40 rounded-xl shadow-lg ${getButtonClass(
               answer
             )} relative`}
             key={index}

@@ -61,11 +61,11 @@ const Timer: React.FC<TimerProps> = ({
   }, [Math.ceil(timeRemaining)]);
 
   return (
-    <div className="flex justify-center items-center my-5">
+    <div className="flex justify-center items-center mb-5">
       <svg
         key={resetKey}
-        width="85"
-        height="85"
+        width="70"
+        height="70"
         viewBox="0 0 36 36"
         className="relative"
       >
@@ -102,7 +102,7 @@ const Timer: React.FC<TimerProps> = ({
           dy=".3em"
           fontSize="12"
           fontWeight="bold"
-          fill={timeRemaining < 3 ? "#ef4444" : "#333"}
+          fill="white"
           style={{
             transform: `scale(${scale})`,
             transformOrigin: "center",
