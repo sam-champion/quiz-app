@@ -92,24 +92,29 @@ const CustomMode = () => {
   };
 
   return (
-    <div className="min-h-screen bg-custom-gradient flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex flex-col">
       <Navbar />
       {!quizState.quizStarted ? (
-        <div className="flex flex-grow items-center justify-center">
+        <div className="flex flex-grow items-center justify-center px-4 sm:px-6">
           <form
-            className="flex flex-col justify-center min-w-[25%] space-y-6"
+            className="p-6 max-w-md w-full flex flex-col items-center"
             onSubmit={handleSubmit}
           >
-            <div>
+            <h2 className="my-5 text-3xl sm:text-4xl font-bold text-yellow-300 text-center">
+              Create Your Quiz
+            </h2>
+
+            {/* Category Dropdown */}
+            <div className="w-full mb-5">
               <label
-                className="block text-sm/6 font-medium text-gray-900"
                 htmlFor="category"
+                className="block text-sm font-medium text-white"
               >
                 Category:
               </label>
               <select
                 id="category"
-                className="block w-full rounded-md bg-white px-3 py-1.5 shadow-md text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                className="block w-full text-lg h-10 mt-1 rounded-md bg-opacity-20 bg-white text-white border-white border-2 shadow-md"
                 value={Object.keys(categoryMap).find(
                   (key) => categoryMap[key] === category
                 )}
@@ -123,16 +128,17 @@ const CustomMode = () => {
               </select>
             </div>
 
-            <div>
+            {/* Difficulty Dropdown */}
+            <div className="w-full mb-5">
               <label
-                className="block text-sm/6 font-medium text-gray-900"
                 htmlFor="difficulty"
+                className="block text-sm font-medium text-white"
               >
                 Difficulty:
               </label>
               <select
                 id="difficulty"
-                className="block w-full rounded-md bg-white px-3 py-1.5 shadow-md text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                className="block w-full text-lg h-10 mt-1 rounded-md bg-opacity-20 bg-white text-white border-white border-2 shadow-md"
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
               >
@@ -142,31 +148,32 @@ const CustomMode = () => {
               </select>
             </div>
 
-            <div>
+            {/* Number of Questions Dropdown */}
+            <div className="w-full mb-8">
               <label
-                className="block text-sm/6 font-medium text-gray-900"
                 htmlFor="numQuestions"
+                className="block text-sm font-medium text-white"
               >
                 Number of Questions:
               </label>
               <select
                 id="numQuestions"
-                className="block w-full rounded-md bg-white px-3 py-1.5 shadow-md text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                className="block w-full text-lg h-10 mt-1 rounded-md bg-opacity-20 bg-white text-white border-white border-2 shadow-md"
                 value={numberOfQuestions}
                 onChange={(e) => setNumberOfQuestions(parseInt(e.target.value))}
               >
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={15}>15</option>
-                <option value={20}>20</option>
-                <option value={25}>25</option>
-                <option value={50}>50</option>
+                {[5, 10, 15, 20, 25, 50].map((num) => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
               </select>
             </div>
 
+            {/* Start Quiz Button */}
             <button
-              className="px-8 py-4 bg-green-600 text-white rounded hover:bg-green-500 text-xl"
               type="submit"
+              className="w-full sm:w-60 py-3 mb-5 bg-gradient-to-b from-indigo-500 to-indigo-600 text-white font-medium text-lg rounded-lg shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 transition"
             >
               Start Quiz
             </button>
