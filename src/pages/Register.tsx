@@ -4,6 +4,7 @@ import { auth, db } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   validatePassword,
+  updateProfile,
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -84,6 +85,10 @@ function Register() {
         email,
         password
       );
+
+      await updateProfile(userCredential.user, {
+        displayName: username,
+      });
 
       const userDocRef = doc(db, "users", userCredential.user.uid);
       await setDoc(userDocRef, {
