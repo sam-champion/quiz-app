@@ -10,16 +10,19 @@ interface QuestionAndAnswersProps {
     score: number;
   };
   handleAnswer: (userAnswer: string) => void;
+  isAnswering: boolean;
+  setIsAnswering: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const QuestionAndAnswers: React.FC<QuestionAndAnswersProps> = ({
   quizState,
   handleAnswer,
+  isAnswering,
+  setIsAnswering,
 }) => {
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false);
-  const [isAnswering, setIsAnswering] = useState<boolean>(false);
 
   const { quizStarted, questions, currentQuestionIndex } = quizState;
   const currentQuestion = questions[currentQuestionIndex];
@@ -48,9 +51,9 @@ const QuestionAndAnswers: React.FC<QuestionAndAnswersProps> = ({
 
   const handleClick = (answer: string) => {
     if (selectedAnswer || isAnswering) return;
+    setIsAnswering(true);
     setSelectedAnswer(answer);
     setShowCorrectAnswer(true);
-    setIsAnswering(true);
     handleAnswer(answer);
   };
 
