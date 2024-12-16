@@ -20,6 +20,7 @@ const CustomMode = () => {
     skipsRemaining: 0,
     score: 0,
   });
+  const [isAnswering, setIsAnswering] = useState(false);
 
   const categoryMap: { [key: string]: string } = {
     "General Knowledge": "general_knowledge",
@@ -190,6 +191,8 @@ const CustomMode = () => {
           <QuestionAndAnswers
             quizState={quizState}
             handleAnswer={handleAnswer}
+            isAnswering={isAnswering}
+            setIsAnswering={setIsAnswering}
           />
         </div>
       ) : (
