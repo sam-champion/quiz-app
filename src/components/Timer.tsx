@@ -1,28 +1,26 @@
 import { useEffect, useState } from "react";
+import { QuizState } from "../types";
 import { useNavigate } from "react-router";
-import { TriviaQuestion } from "../types";
+import { toast } from "react-toastify";
 
 interface TimerProps {
-  quizState: {
-    quizStarted: boolean;
-    questions: TriviaQuestion[];
-    currentQuestionIndex: number;
-    skipsRemaining: number;
-    score: number;
-  };
-  handleSkip: () => void;
+  quizState: QuizState;
   initialTime: number;
   isAnswering: boolean;
+  setQuizState: React.Dispatch<React.SetStateAction<QuizState>>;
+  fetchTriviaQuestions: () => Promise<void>;
 }
 
 const Timer: React.FC<TimerProps> = ({
   quizState,
-  handleSkip,
   initialTime,
   isAnswering,
+  setQuizState,
+  fetchTriviaQuestions,
 }) => {
-  const { quizStarted, skipsRemaining, currentQuestionIndex } = quizState;
+  const { quizStarted, livesRemaining, currentQuestionIndex } = quizState;
   const [timeRemaining, setTimeRemaining] = useState(initialTime);
+  const [isTimedOut, setIsTimedOut] = useState(false);
   const [resetKey, setResetKey] = useState(0);
   const [scale, setScale] = useState(1);
   const navigate = useNavigate();
@@ -33,25 +31,20 @@ const Timer: React.FC<TimerProps> = ({
     if (!quizStarted || isAnswering) return;
 
     setTimeRemaining(initialTime);
+    setIsTimedOut(false);
     setResetKey((prev) => prev + 1);
 
     const interval = setInterval(() => {
       setTimeRemaining((prevTime) => {
         if (prevTime < 0.2) {
-          if (skipsRemaining > 0) {
-            setTimeout(handleSkip, 0);
-          } else {
-            navigate("/results", {
-              state: { quizState: quizState, completedQuiz: true },
-            });
-          }
+          setTimeout(() => setIsTimedOut(true), 0);
         }
         return Math.max(prevTime - 0.2, 0);
       });
     }, 200);
 
     return () => clearInterval(interval);
-  }, [quizStarted, currentQuestionIndex, skipsRemaining, isAnswering]);
+  }, [quizStarted, currentQuestionIndex, livesRemaining, isAnswering]);
 
   useEffect(() => {
     if (timeRemaining <= 3 && timeRemaining > 0.2) {
@@ -61,6 +54,32 @@ const Timer: React.FC<TimerProps> = ({
       }, 300);
     }
   }, [Math.ceil(timeRemaining)]);
+
+  useEffect(() => {
+    if (isTimedOut) {
+      const updatedLivesRemaining = quizState.livesRemaining - 1;
+
+      setQuizState((prev) => ({
+        ...prev,
+        livesRemaining: updatedLivesRemaining,
+      }));
+
+      if (updatedLivesRemaining > 0) {
+        setQuizState((prev) => ({
+          ...prev,
+          currentQuestionIndex: prev.currentQuestionIndex + 1,
+        }));
+        if (quizState.questions.length - quizState.currentQuestionIndex <= 10) {
+          fetchTriviaQuestions();
+        }
+      } else {
+        toast.error("No lives remaining! Game over.");
+        navigate("/results", {
+          state: { quizState: quizState, completedQuiz: true },
+        });
+      }
+    }
+  }, [isTimedOut]);
 
   return (
     <div className="flex justify-center items-center mb-5">

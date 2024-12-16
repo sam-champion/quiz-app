@@ -93,7 +93,6 @@ function Register() {
       const userDocRef = doc(db, "users", userCredential.user.uid);
       await setDoc(userDocRef, {
         username: username,
-        highscore: 0,
       });
 
       await setDoc(usernameDocRef, {

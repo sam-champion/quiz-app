@@ -14,10 +14,11 @@ export type TriviaQuestion = {
 };
 
 export type QuizState = {
+  quizMode: "custom" | "challenge";
   quizStarted: boolean;
   questions: TriviaQuestion[];
   currentQuestionIndex: number;
   usedQuestionIds: Set<string>;
-  skipsRemaining: number;
+  livesRemaining: number;
   score: number;
 };
