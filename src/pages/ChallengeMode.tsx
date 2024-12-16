@@ -11,6 +11,7 @@ import QuestionAndAnswers from "../components/QuestionAndAnswers";
 
 function ChallengeMode() {
   const navigate = useNavigate();
+  const [isAnswering, setIsAnswering] = useState(false);
   const [quizState, setQuizState] = useState<QuizState>({
     quizStarted: false,
     questions: [],
@@ -183,6 +184,7 @@ function ChallengeMode() {
             quizState={quizState}
             handleSkip={handleSkip}
             initialTime={15}
+            isAnswering={isAnswering}
           />
           <p className="text-3xl font-bold text-yellow-300 mb-10">
             Question: {quizState.currentQuestionIndex + 1}
@@ -190,6 +192,8 @@ function ChallengeMode() {
           <QuestionAndAnswers
             quizState={quizState}
             handleAnswer={handleAnswer}
+            isAnswering={isAnswering}
+            setIsAnswering={setIsAnswering}
           />
           <SkipBtn
             handleSkip={handleSkip}

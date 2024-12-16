@@ -12,12 +12,14 @@ interface TimerProps {
   };
   handleSkip: () => void;
   initialTime: number;
+  isAnswering: boolean;
 }
 
 const Timer: React.FC<TimerProps> = ({
   quizState,
   handleSkip,
   initialTime,
+  isAnswering,
 }) => {
   const { quizStarted, skipsRemaining, currentQuestionIndex } = quizState;
   const [timeRemaining, setTimeRemaining] = useState(initialTime);
@@ -28,7 +30,7 @@ const Timer: React.FC<TimerProps> = ({
   const progressPercentage = (timeRemaining / initialTime) * 100;
 
   useEffect(() => {
-    if (!quizStarted) return;
+    if (!quizStarted || isAnswering) return;
 
     setTimeRemaining(initialTime);
     setResetKey((prev) => prev + 1);
@@ -49,7 +51,7 @@ const Timer: React.FC<TimerProps> = ({
     }, 200);
 
     return () => clearInterval(interval);
-  }, [quizStarted, currentQuestionIndex, skipsRemaining]);
+  }, [quizStarted, currentQuestionIndex, skipsRemaining, isAnswering]);
 
   useEffect(() => {
     if (timeRemaining <= 3 && timeRemaining > 0.2) {
