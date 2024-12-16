@@ -13,11 +13,12 @@ const CustomMode = () => {
   const [category, setCategory] = useState<string>("General Knowledge");
   const [numberOfQuestions, setNumberOfQuestions] = useState<number>(10);
   const [quizState, setQuizState] = useState<QuizState>({
+    quizMode: "custom",
     quizStarted: false,
     questions: [],
     currentQuestionIndex: 0,
     usedQuestionIds: new Set<string>(),
-    skipsRemaining: 0,
+    livesRemaining: 0,
     score: 0,
   });
   const [isAnswering, setIsAnswering] = useState(false);

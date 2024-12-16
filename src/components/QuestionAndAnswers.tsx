@@ -6,7 +6,7 @@ interface QuestionAndAnswersProps {
     quizStarted: boolean;
     questions: TriviaQuestion[];
     currentQuestionIndex: number;
-    skipsRemaining: number;
+    livesRemaining: number;
     score: number;
   };
   handleAnswer: (userAnswer: string) => void;

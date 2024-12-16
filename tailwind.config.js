@@ -9,6 +9,7 @@ export default {
       },
       fontFamily: {
         video: ['"video"', "serif"],
+        rampartOne: ["Rampart One", "sans-serif"],
       },
     },
   },
