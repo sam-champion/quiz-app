@@ -13,7 +13,7 @@ function Leaderboard() {
   const fetchUsers = async () => {
     try {
       const usersCollection = collection(db, "users");
-      const q = query(usersCollection, orderBy("highscore", "asc"));
+      const q = query(usersCollection, orderBy("highscore", "desc"));
       const querySnapshot = await getDocs(q);
       console.log(querySnapshot);
 
