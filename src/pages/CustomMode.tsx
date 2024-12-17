@@ -80,16 +80,22 @@ const CustomMode = () => {
     }));
 
     setTimeout(() => {
-      if (quizState.currentQuestionIndex === quizState.questions.length - 1) {
-        navigate("/results", {
-          state: { quizState, completedQuiz: true },
-        });
-        return;
-      }
-      setQuizState((prev) => ({
-        ...prev,
-        currentQuestionIndex: prev.currentQuestionIndex + 1,
-      }));
+      setQuizState((prev) => {
+        const isLastQuestion =
+          prev.currentQuestionIndex === prev.questions.length - 1;
+
+        if (isLastQuestion) {
+          navigate("/results", {
+            state: { quizState: prev, completedQuiz: true },
+          });
+          return prev;
+        }
+
+        return {
+          ...prev,
+          currentQuestionIndex: prev.currentQuestionIndex + 1,
+        };
+      });
     }, 1500);
   };
 
