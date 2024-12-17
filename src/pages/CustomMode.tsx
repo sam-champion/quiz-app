@@ -97,90 +97,114 @@ const CustomMode = () => {
     <div className="min-h-screen bg-custom-gradient flex flex-col">
       <Navbar />
       {!quizState.quizStarted ? (
-        <div className="flex flex-grow items-center justify-center px-4 sm:px-6">
-          <form
-            className="p-6 max-w-md w-full flex flex-col items-center"
-            onSubmit={handleSubmit}
-          >
-            <h2 className="my-5 text-3xl sm:text-4xl font-bold text-yellow-300 text-center">
-              Create Your Quiz
-            </h2>
-
-            {/* Category Dropdown */}
-            <div className="w-full mb-5">
-              <label
-                htmlFor="category"
-                className="block text-sm font-medium text-white"
-              >
-                Category:
-              </label>
-              <select
-                id="category"
-                className="block w-full text-lg h-10 mt-1 rounded-md bg-opacity-20 bg-white text-white border-white border-2 shadow-md"
-                value={Object.keys(categoryMap).find(
-                  (key) => categoryMap[key] === category
-                )}
-                onChange={(e) => setCategory(categoryMap[e.target.value])}
-              >
-                {Object.keys(categoryMap).map((displayName) => (
-                  <option key={displayName} value={displayName}>
-                    {displayName}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Difficulty Dropdown */}
-            <div className="w-full mb-5">
-              <label
-                htmlFor="difficulty"
-                className="block text-sm font-medium text-white"
-              >
-                Difficulty:
-              </label>
-              <select
-                id="difficulty"
-                className="block w-full text-lg h-10 mt-1 rounded-md bg-opacity-20 bg-white text-white border-white border-2 shadow-md"
-                value={difficulty}
-                onChange={(e) => setDifficulty(e.target.value)}
-              >
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
-            </div>
-
-            {/* Number of Questions Dropdown */}
-            <div className="w-full mb-8">
-              <label
-                htmlFor="numQuestions"
-                className="block text-sm font-medium text-white"
-              >
-                Number of Questions:
-              </label>
-              <select
-                id="numQuestions"
-                className="block w-full text-lg h-10 mt-1 rounded-md bg-opacity-20 bg-white text-white border-white border-2 shadow-md"
-                value={numberOfQuestions}
-                onChange={(e) => setNumberOfQuestions(parseInt(e.target.value))}
-              >
-                {[5, 10, 15, 20, 25, 50].map((num) => (
-                  <option key={num} value={num}>
-                    {num}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Start Quiz Button */}
+        <>
+          <div className="flex justify-end items-center mx-auto max-w-6xl w-full pt-5">
             <button
-              type="submit"
-              className="w-full sm:w-60 py-3 mb-5 bg-gradient-to-b from-green-500 to-green-600 text-white font-medium text-lg rounded-xl shadow-md focus:ring-2 focus:ring-white"
+              className="mx-5 px-2 py-1 bg-gradient-to-b from-gray-500 to-slate-600 text-white rounded-xl shadow-lg focus:ring-2 focus:ring-white"
+              onClick={() => navigate("/")}
             >
-              Start Quiz
+              <div className="flex flex-row items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                  height="16px"
+                  width="16px"
+                  fill="currentColor"
+                  className="text-white"
+                >
+                  <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+                </svg>
+                <span className="ms-1 text-xs">Back</span>
+              </div>
             </button>
-          </form>
-        </div>
+          </div>
+          <div className="flex flex-grow items-center justify-center px-4 sm:px-6">
+            <form
+              className="px-5 pb-5 max-w-md w-full flex flex-col items-center"
+              onSubmit={handleSubmit}
+            >
+              <h2 className="my-5 text-3xl sm:text-4xl font-bold text-yellow-300 text-center">
+                Create Your Quiz
+              </h2>
+
+              {/* Category Dropdown */}
+              <div className="w-full mb-5">
+                <label
+                  htmlFor="category"
+                  className="block text-sm font-medium text-white"
+                >
+                  Category:
+                </label>
+                <select
+                  id="category"
+                  className="block w-full text-lg h-10 mt-1 rounded-md bg-opacity-20 bg-white text-white border-white border-2 shadow-md"
+                  value={Object.keys(categoryMap).find(
+                    (key) => categoryMap[key] === category
+                  )}
+                  onChange={(e) => setCategory(categoryMap[e.target.value])}
+                >
+                  {Object.keys(categoryMap).map((displayName) => (
+                    <option key={displayName} value={displayName}>
+                      {displayName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Difficulty Dropdown */}
+              <div className="w-full mb-5">
+                <label
+                  htmlFor="difficulty"
+                  className="block text-sm font-medium text-white"
+                >
+                  Difficulty:
+                </label>
+                <select
+                  id="difficulty"
+                  className="block w-full text-lg h-10 mt-1 rounded-md bg-opacity-20 bg-white text-white border-white border-2 shadow-md"
+                  value={difficulty}
+                  onChange={(e) => setDifficulty(e.target.value)}
+                >
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
+
+              {/* Number of Questions Dropdown */}
+              <div className="w-full mb-8">
+                <label
+                  htmlFor="numQuestions"
+                  className="block text-sm font-medium text-white"
+                >
+                  Number of Questions:
+                </label>
+                <select
+                  id="numQuestions"
+                  className="block w-full text-lg h-10 mt-1 rounded-md bg-opacity-20 bg-white text-white border-white border-2 shadow-md"
+                  value={numberOfQuestions}
+                  onChange={(e) =>
+                    setNumberOfQuestions(parseInt(e.target.value))
+                  }
+                >
+                  {[5, 10, 15, 20, 25, 50].map((num) => (
+                    <option key={num} value={num}>
+                      {num}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Start Quiz Button */}
+              <button
+                type="submit"
+                className="w-full sm:w-60 py-3 mb-5 bg-gradient-to-b from-green-500 to-green-600 text-white font-medium text-lg rounded-xl shadow-md focus:ring-2 focus:ring-white"
+              >
+                Start Quiz
+              </button>
+            </form>
+          </div>
+        </>
       ) : quizState.questions.length !== 0 ? (
         <div className="flex-grow flex flex-col items-center justify-center py-10">
           <div className="flex flex-col justify-center items-center space-y-2 mb-10">

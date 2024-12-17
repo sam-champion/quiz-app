@@ -110,80 +110,102 @@ function ChallengeMode() {
     <div className="min-h-screen bg-custom-gradient flex flex-col">
       <Navbar />
       {!quizState.quizStarted ? (
-        <div className="flex flex-col flex-grow items-center justify-center p-6 mx-auto">
-          {/* Game Mode Description */}
-          <h1 className="text-3xl sm:text-4xl font-bold text-yellow-300 mb-10">
-            Welcome to Challenge Mode!
-          </h1>
-
-          <div className="bg-opacity-20 bg-white border-white border-2 rounded-xl space-y-5 px-10 sm:py-10 py-5">
-            <p className="text-xl sm:text-2xl text-white font-bold opacity-80 text-center">
-              Here’s how it works:
-            </p>
-            <div className="flex items-center space-x-4 justify-left">
-              <span className="bg-white bg-opacity-50 text-slate-800 rounded-full min-h-10 min-w-10 sm:min-h-14 sm:min-w-14 flex items-center justify-center">
+        <>
+          <div className="flex justify-end items-center mx-auto max-w-7xl w-full pt-5">
+            <button
+              className="me-5 px-2 py-1 bg-gradient-to-b from-gray-500 to-slate-600 text-white rounded-xl shadow-lg focus:ring-2 focus:ring-white"
+              onClick={() => navigate("/")}
+            >
+              <div className="flex flex-row items-center justify-center">
                 <svg
-                  className="w-6 h-6 sm:w-8 sm:h-8"
                   xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                  height="16px"
+                  width="16px"
                   fill="currentColor"
-                  viewBox="0 0 16 16"
+                  className="text-white"
                 >
-                  <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07A7.001 7.001 0 0 0 8 16a7 7 0 0 0 5.29-11.584l.013-.012.354-.354.353.354a.5.5 0 1 0 .707-.707l-1.414-1.415a.5.5 0 1 0-.707.707l.354.354-.354.354-.012.012A6.97 6.97 0 0 0 9 2.071V1h.5a.5.5 0 0 0 0-1zm2 5.6V9a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5.6a.5.5 0 1 1 1 0" />
+                  <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
                 </svg>
-              </span>
-              <p className="text-md sm:text-xl text-white opacity-70 font-semibold">
-                Think fast! You only have 15 seconds per question.
-              </p>
-            </div>
+                <span className="ms-1 text-xs">Back</span>
+              </div>
+            </button>
+          </div>
+          <div className="flex flex-col flex-grow items-center justify-center px-5 pb-5 mx-auto">
+            {/* Game Mode Description */}
+            <h1 className="text-3xl sm:text-4xl font-bold text-yellow-300 mb-10">
+              Welcome to Challenge Mode!
+            </h1>
 
-            <div className="flex items-center space-x-4 justify-left">
-              <span className="bg-white bg-opacity-50 text-slate-800 rounded-full min-h-10 min-w-10 sm:min-h-14 sm:min-w-14 flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 sm:w-8 sm:h-8"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 -1 16 16"
-                >
-                  <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586M7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77" />
-                </svg>
-              </span>
-              <p className="text-md sm:text-xl text-white opacity-70 font-semibold">
-                Choose wisely, each wrong answer costs a life!
+            <div className="bg-opacity-20 bg-white border-white border-2 rounded-xl space-y-5 px-10 sm:py-10 py-5">
+              <p className="text-xl sm:text-2xl text-white font-bold opacity-80 text-center">
+                Here’s how it works:
               </p>
-            </div>
+              <div className="flex items-center space-x-4 justify-left">
+                <span className="bg-white bg-opacity-50 text-slate-800 rounded-full min-h-10 min-w-10 sm:min-h-14 sm:min-w-14 flex items-center justify-center">
+                  <svg
+                    className="w-6 h-6 sm:w-8 sm:h-8"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07A7.001 7.001 0 0 0 8 16a7 7 0 0 0 5.29-11.584l.013-.012.354-.354.353.354a.5.5 0 1 0 .707-.707l-1.414-1.415a.5.5 0 1 0-.707.707l.354.354-.354.354-.012.012A6.97 6.97 0 0 0 9 2.071V1h.5a.5.5 0 0 0 0-1zm2 5.6V9a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5.6a.5.5 0 1 1 1 0" />
+                  </svg>
+                </span>
+                <p className="text-md sm:text-xl text-white opacity-70 font-semibold">
+                  Think fast! You only have 15 seconds per question.
+                </p>
+              </div>
 
-            <div className="flex items-center space-x-4 justify-left">
-              <span className="bg-white bg-opacity-50 text-slate-800 rounded-full min-h-10 min-w-10 sm:min-h-14 sm:min-w-14 flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 sm:w-8 sm:h-8"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
+              <div className="flex items-center space-x-4 justify-left">
+                <span className="bg-white bg-opacity-50 text-slate-800 rounded-full min-h-10 min-w-10 sm:min-h-14 sm:min-w-14 flex items-center justify-center">
+                  <svg
+                    className="w-6 h-6 sm:w-8 sm:h-8"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 -1 16 16"
+                  >
+                    <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586M7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77" />
+                  </svg>
+                </span>
+                <p className="text-md sm:text-xl text-white opacity-70 font-semibold">
+                  Choose wisely, each wrong answer costs a life!
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-4 justify-left">
+                <span className="bg-white bg-opacity-50 text-slate-800 rounded-full min-h-10 min-w-10 sm:min-h-14 sm:min-w-14 flex items-center justify-center">
+                  <svg
+                    className="w-6 h-6 sm:w-8 sm:h-8"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5q0 .807-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33 33 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935m10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935" />
+                  </svg>
+                </span>
+                <p className="text-md sm:text-xl text-white opacity-70 font-semibold">
+                  Get your name on the leaderboard and see how you compare!
+                </p>
+              </div>
+              {/* Start Quiz Button */}
+              <div className="flex items-center justify-center">
+                <button
+                  onClick={() => {
+                    setQuizState((prev) => ({
+                      ...prev,
+                      quizStarted: true,
+                    }));
+                    fetchTriviaQuestions();
+                  }}
+                  className=" px-6 py-2 sm:px-8 sm:py-3 sm:w-60 bg-gradient-to-b from-green-500 to-green-600 text-white rounded-xl text-xl font-medium shadow-md focus:ring-2 focus:ring-white"
                 >
-                  <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5q0 .807-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33 33 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935m10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935" />
-                </svg>
-              </span>
-              <p className="text-md sm:text-xl text-white opacity-70 font-semibold">
-                Get your name on the leaderboard and see how you compare!
-              </p>
-            </div>
-            {/* Start Quiz Button */}
-            <div className="flex items-center justify-center">
-              <button
-                onClick={() => {
-                  setQuizState((prev) => ({
-                    ...prev,
-                    quizStarted: true,
-                  }));
-                  fetchTriviaQuestions();
-                }}
-                className=" px-6 py-2 sm:px-8 sm:py-3 sm:w-60 bg-gradient-to-b from-green-500 to-green-600 text-white rounded-xl text-xl font-medium shadow-md focus:ring-2 focus:ring-white"
-              >
-                Start Quiz
-              </button>
+                  Start Quiz
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       ) : quizState.questions.length !== 0 ? (
         <div className="flex-grow flex flex-col items-center justify-center my-10">
           <Timer
