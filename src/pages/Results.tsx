@@ -58,7 +58,7 @@ function Results() {
   } else if (completedQuiz) {
     return (
       <>
-        <div className="flex flex-col h-screen bg-custom-gradient">
+        <div className="flex flex-col min-h-screen bg-custom-gradient">
           <Navbar />
           <div className="flex-grow flex flex-col justify-center items-center py-10 px-10">
             {newHighScore && quizState.quizMode === "challenge" && (
