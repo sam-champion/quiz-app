@@ -36,7 +36,7 @@ function Leaderboard() {
 
   return (
     <>
-      <div className="flex flex-col min-h-screen bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500">
+      <div className="flex flex-col min-h-screen bg-custom-gradient">
         <Navbar />
         <div className="py-10 px-5 sm:px-10">
           <h1 className="text-center text-4xl sm:text-5xl text-yellow-300 font-bold mb-5">
