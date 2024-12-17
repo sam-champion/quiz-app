@@ -76,8 +76,8 @@ function Navbar() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-row items-center justify-center">
-              <div className="w-14 max-sm:w-11">
-                <Logo className="text-pink-300" />
+              <div className="w-12 max-sm:w-11">
+                <Logo className="text-white" />
               </div>
               <h2 className="text-right ms-1 font-video text-lg font-light text-white">
                 <div className="flex flex-col">

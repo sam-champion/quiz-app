@@ -112,8 +112,8 @@ function Register() {
       <div className="flex h-full flex-col justify-center px-6 py-12 lg:px-8 bg-white">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="flex flex-col items-center">
-            <div className="w-28 ">
-              <Logo className="text-pink-300" />
+            <div className="w-20 mb-2">
+              <Logo />
             </div>
             <h1 className="text-center font-video text-xl font-light">
               ByteSize Trivia
