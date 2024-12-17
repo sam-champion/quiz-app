@@ -94,16 +94,16 @@ const Timer: React.FC<TimerProps> = ({
         <circle
           cx="18"
           cy="18"
-          r="15.91549431"
+          r="16"
           fill="none"
           stroke="#fce7f3"
-          strokeWidth="4"
+          strokeWidth="3.2"
         />
         {/* Progress Circle */}
         <circle
           cx="18"
           cy="18"
-          r="15.91549431"
+          r="16"
           fill="none"
           stroke="#4f46e5"
           strokeWidth="4"
