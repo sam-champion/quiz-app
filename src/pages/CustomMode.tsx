@@ -100,7 +100,7 @@ const CustomMode = () => {
         <>
           <div className="flex justify-end items-center mx-auto max-w-6xl w-full pt-5">
             <button
-              className="mx-5 px-2 py-1 bg-gradient-to-b from-gray-500 to-slate-600 text-white rounded-xl shadow-lg focus:ring-2 focus:ring-white"
+              className="mx-5 px-3 py-2 bg-gradient-to-b from-gray-500 to-slate-600 text-white rounded-xl shadow-lg focus:ring-2 focus:ring-white"
               onClick={() => navigate("/")}
             >
               <div className="flex flex-row items-center justify-center">
