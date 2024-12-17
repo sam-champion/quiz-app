@@ -107,7 +107,7 @@ function ChallengeMode() {
   };
 
   return (
-    <div className="min-h-full bg-custom-gradient flex flex-col">
+    <div className="min-h-screen bg-custom-gradient flex flex-col">
       <Navbar />
       {!quizState.quizStarted ? (
         <div className="flex flex-col flex-grow items-center justify-center p-6 mx-auto">
@@ -116,7 +116,7 @@ function ChallengeMode() {
             Welcome to Challenge Mode!
           </h1>
 
-          <div className="bg-opacity-20 bg-white rounded-xl space-y-5 px-10 sm:py-10 py-5">
+          <div className="bg-opacity-20 bg-white border-white border-2 rounded-xl space-y-5 px-10 sm:py-10 py-5">
             <p className="text-xl sm:text-2xl text-white font-bold opacity-80 text-center">
               Here’s how it works:
             </p>

@@ -22,3 +22,9 @@ export type QuizState = {
   livesRemaining: number;
   score: number;
 };
+
+export type User = {
+  id: string;
+  username: string;
+  highscore: number;
+};
