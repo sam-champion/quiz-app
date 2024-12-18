@@ -132,8 +132,6 @@ const CustomMode = () => {
               <h2 className="my-5 text-3xl sm:text-4xl font-bold text-yellow-300 text-center">
                 Create Your Quiz
               </h2>
-
-              {/* Category Dropdown */}
               <div className="w-full mb-5">
                 <label
                   htmlFor="category"
@@ -156,8 +154,6 @@ const CustomMode = () => {
                   ))}
                 </select>
               </div>
-
-              {/* Difficulty Dropdown */}
               <div className="w-full mb-5">
                 <label
                   htmlFor="difficulty"
@@ -176,8 +172,6 @@ const CustomMode = () => {
                   <option value="hard">Hard</option>
                 </select>
               </div>
-
-              {/* Number of Questions Dropdown */}
               <div className="w-full mb-8">
                 <label
                   htmlFor="numQuestions"
@@ -200,8 +194,6 @@ const CustomMode = () => {
                   ))}
                 </select>
               </div>
-
-              {/* Start Quiz Button */}
               <button
                 type="submit"
                 className="w-full sm:w-60 py-3 mb-5 bg-gradient-to-b from-green-500 to-green-600 text-white font-medium text-lg rounded-xl shadow-md focus:ring-2 focus:ring-white"

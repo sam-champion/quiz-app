@@ -9,7 +9,6 @@ function Leaderboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Fetch usernames and highscores from Firestore
   const fetchUsers = async () => {
     try {
       const usersCollection = collection(db, "users");

@@ -10,25 +10,19 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-custom-gradient flex flex-col items-center text-white">
-      {/* Navbar at the top, full width */}
       <div className="w-full">
         <Navbar />
       </div>
-
       <div className="flex flex-col items-center space-y-6 max-w-screen-md w-full text-center flex-grow justify-center px-10 py-10 sm:px-8">
-        {/* Welcome Message */}
         <h1 className="text-3xl sm:text-5xl font-extrabold drop-shadow-md">
           Welcome back, <span className="text-yellow-300">{username}</span>!
         </h1>
         <p className="text-lg sm:text-xl font-bold text-white">
           Choose a game mode to start your trivia adventure:
         </p>
-
-        {/* Game Mode Buttons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 max-w-80 sm:max-w-full">
-          {/* Custom Quiz Card */}
           <div
-            className="group bg-white bg-opacity-10 rounded-2xl border-white border-2 p-6 text-center shadow-md hover:shadow-xl hover:bg-opacity-20 transform hover:-translate-y-2 transition-all duration-300"
+            className="group bg-white bg-opacity-10 rounded-2xl border-white border-2 p-6 text-center shadow-md hover:shadow-xl hover:bg-opacity-20 transform hover:-translate-y-2 transition-all duration-300 cursor-pointer"
             onClick={() => navigate("/quiz?mode=custom")}
           >
             <div className="flex items-center justify-center mb-2">
@@ -52,10 +46,8 @@ function Home() {
               for practicing trivia!
             </p>
           </div>
-
-          {/* Challenge Mode Card */}
           <div
-            className="group bg-white bg-opacity-10 rounded-2xl border-white border-2 p-6 text-center shadow-md hover:shadow-xl hover:bg-opacity-20 transform hover:-translate-y-2 transition-all duration-300"
+            className="group bg-white bg-opacity-10 rounded-2xl border-white border-2 p-6 text-center shadow-md hover:shadow-xl hover:bg-opacity-20 transform hover:-translate-y-2 transition-all duration-300 cursor-pointer"
             onClick={() => navigate("/quiz?mode=challenge")}
           >
             <div className="flex items-center justify-center mb-2">

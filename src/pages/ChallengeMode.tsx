@@ -132,11 +132,9 @@ function ChallengeMode() {
             </button>
           </div>
           <div className="flex flex-col flex-grow items-center justify-center px-5 pb-5 mx-auto">
-            {/* Game Mode Description */}
             <h1 className="text-3xl sm:text-4xl font-bold text-yellow-300 mb-10">
               Welcome to Challenge Mode!
             </h1>
-
             <div className="bg-opacity-20 bg-white border-white border-2 rounded-xl space-y-5 px-10 sm:py-10 py-5">
               <p className="text-xl sm:text-2xl text-white font-bold opacity-80 text-center">
                 Here’s how it works:
@@ -156,7 +154,6 @@ function ChallengeMode() {
                   Think fast! You only have 15 seconds per question.
                 </p>
               </div>
-
               <div className="flex items-center space-x-4 justify-left">
                 <span className="bg-white bg-opacity-50 text-slate-800 rounded-full min-h-10 min-w-10 sm:min-h-14 sm:min-w-14 flex items-center justify-center">
                   <svg
@@ -172,7 +169,6 @@ function ChallengeMode() {
                   Choose wisely, each wrong answer costs a life!
                 </p>
               </div>
-
               <div className="flex items-center space-x-4 justify-left">
                 <span className="bg-white bg-opacity-50 text-slate-800 rounded-full min-h-10 min-w-10 sm:min-h-14 sm:min-w-14 flex items-center justify-center">
                   <svg
@@ -188,7 +184,6 @@ function ChallengeMode() {
                   Get your name on the leaderboard and see how you compare!
                 </p>
               </div>
-              {/* Start Quiz Button */}
               <div className="flex items-center justify-center">
                 <button
                   onClick={() => {

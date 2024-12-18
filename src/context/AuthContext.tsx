@@ -55,7 +55,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       setIsAuthenticated(true);
       setUser(userCredential.user);
     } catch (error) {
-      console.error("Error logging in: ", error);
       throw new Error("Login failed. Please check your credentials.");
     }
   };
@@ -66,7 +65,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       setIsAuthenticated(false);
       setUser(null);
     } catch (error) {
-      console.error("Error logging out: ", error);
       throw new Error("Logout failed. Please try again.");
     }
   };

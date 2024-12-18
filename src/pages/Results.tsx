@@ -71,17 +71,13 @@ function Results() {
             <h1 className="text-4xl sm:text-6xl mb-5 font-bold text-white">
               Results
             </h1>
-            {/* Display Score */}
             <div className="flex flex-col items-center text-3xl sm:text-4xl text-white font-bold">
               <span>---Score--- </span>
               <span className="text-yellow-300 text-7xl sm:text-8xl font-rampartOne">
                 {quizState.score}
               </span>
             </div>
-
-            {/* Render content based on quiz mode */}
             {quizState.quizMode === "custom" ? (
-              // Custom Mode Results (show number of correct answers out of total questions)
               <>
                 <p className="text-lg sm:text-xl text-white text-center mt-5">
                   You answered {quizState.score} out of{" "}
@@ -89,11 +85,7 @@ function Results() {
                 </p>
               </>
             ) : (
-              // Challenge Mode Results (show only the score and check for highscore)
               <>
-                {/* New Highscore Message */}
-
-                {/* Button to the leaderboard page */}
                 <div className="mt-5">
                   <p className="text-lg sm:text-xl text-white text-center mb-3">
                     Curious how you compare to the competition?
@@ -110,7 +102,6 @@ function Results() {
               </>
             )}
             <div className="flex justify-center mt-10 space-x-4">
-              {/* Button to go to Homepage */}
               <button
                 onClick={() => navigate("/")}
                 className="px-3 py-3 bg-gradient-to-b from-indigo-500 to-indigo-600 text-white font-medium text-lg rounded-xl shadow-md focus:ring-2 focus:ring-white"
@@ -125,8 +116,6 @@ function Results() {
                   <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
                 </svg>
               </button>
-
-              {/* Button to Play Again */}
               <button
                 onClick={() => navigate(`/quiz?mode=${quizState.quizMode}`)}
                 className="px-3 py-3 bg-gradient-to-b from-green-500 to-green-600 text-white font-medium text-lg rounded-xl shadow-md focus:ring-2 focus:ring-white"
